@@ -1,10 +1,16 @@
 from scanner import load_rules, scan_file
 
-file_to_scan = "test_files/15.txt"   # твій файл варіанту 15
-rules = load_rules("rules.txt")
-results = scan_file(file_to_scan, rules)
+def main():
+    rules_path = 'rules.txt'
+    test_file_path = 'test_files/yara_var15.exe'  # твій варіант
 
-if not results:
-    print(f"Файл {file_to_scan} чистий.")
-else:
-    print(f"УВАГА! У файлі {file_to_scan} знайдено загрози: {results}")
+    rules = load_rules(rules_path)
+    found_rules = scan_file(test_file_path, rules)
+
+    if not found_rules:
+        print("File is clean")
+    else:
+        print(f"File is infected with rules: {', '.join(found_rules)}")
+
+if __name__ == "__main__":
+    main()
